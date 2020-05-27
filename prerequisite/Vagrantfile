@@ -1,0 +1,119 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "peru/ubuntu-18.04-desktop-amd64"
+  config.vm.box_version = "20190901.01"
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 2048
+    v.cpus = 2
+  end
+  config.vm.network "forwarded_port", guest: 8000, host: 8080, auto_correct: true
+  config.vm.network "forwarded_port", guest: 80, host: 8081, auto_correct: true
+  config.vm.network "forwarded_port", guest: 9292, host: 8082, auto_correct: true
+  config.vm.provision "shell", run: "always", inline: <<-SHELL
+      apt-get update
+      apt-get install -y\
+              apt-transport-https \
+              ca-certificates \
+              curl \
+              software-properties-common \
+              net-tools \
+              nginx \
+              npm \
+              htop \
+              atop \
+              docker.io \
+              unzip
+
+
+      # docker
+      systemctl start docker
+      systemctl enable docker
+      usermod -aG docker $USER
+      docker run hello-world
+
+      # terraform
+      wget https://releases.hashicorp.com/terraform/0.12.17/terraform_0.12.17_linux_amd64.zip
+      rm -rf terraform
+      unzip terraform_0.12.17_linux_amd64.zip
+      mv terraform /usr/local/bin
+      terraform version
+
+      # ansible
+      apt-add-repository ppa:ansible/ansible
+      
+      # sublime 3
+      wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+      echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+
+      # apt-get update
+      apt-get install -y git
+      apt-get install -y ansible
+      apt-get install -y sublime-text
+      apt-get install -y python3-pip
+
+      # virtualenv
+      pip3 install virtualenv
+      pip3 install virtualenvwrapper
+      echo "export HOME=/home/vagrant/" >> /home/vagrant/.bashrc
+      echo "export WORKON_HOME=/home/vagrant//.virtualenvs" >> /home/vagrant/.bashrc
+      echo "export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3" >> /home/vagrant/.bashrc
+      echo "export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv" >> /home/vagrant/.bashrc
+      echo "source /usr/local/bin/virtualenvwrapper.sh" >> /home/vagrant/.bashrc
+
+      # awscli
+      pip3 install --upgrade --user awscli
+      echo "export PATH=/home/vagrant/.local/bin:$PATH" >> /home/vagrant/.bashrc
+      aws --version
+
+      # chrome
+      wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      sudo dpkg -i google-chrome-stable_current_amd64.deb
+
+      # Install docker
+      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+      add-apt-repository \
+        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+        $(lsb_release -cs) \
+        stable"
+      apt-get install -y docker-ce docker-ce-cli containerd.io
+      usermod -aG docker vagrant
+      newgrp docker 
+
+      # Install go
+      snap install go --classic
+      echo 'eval $(go env)' >> /home/vagrant/.bashrc
+      echo 'export PATH=$GOPATH/bin:$PATH' >> /home/vagrant/.bashrc
+
+      # Install kind
+      export GO111MODULE="on" 
+      go get sigs.k8s.io/kind@v0.6.1
+      mv ~/go /home/vagrant
+
+      # Install kubectl
+      snap install kubectl --classic
+
+      # Install vscode
+      snap install code --classic
+
+      # Git clone repository
+      cd /home/vagrant
+      if [ ! -f git ]; then
+        mkdir -p git
+        cd git
+        git clone https://github.com/JiangRenDevOps/DevOpsLectureNotes.git
+      fi
+      chown -R vagrant:vagrant /home/vagrant
+
+      # zsh
+      # apt-get install -y zsh
+      # chsh -s /usr/bin/zsh vagrant
+
+      # oh-my-zsh
+      # wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh | q
+
+      # cp /home/vagrant/.oh-my-zsh/templates/zshrc.zsh-template /home/vagrant/.zshrc
+      # source /home/vagrant/.zshrc
+
+
+    SHELL
+    
+end
