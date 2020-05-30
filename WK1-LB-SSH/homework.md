@@ -15,7 +15,7 @@ Q5. Read through this tutorial about Nginx https://openresty.org/download/agentz
 
 Q6. Find and use a load tester to load test the URLs. Note down how many requests per second (RPS) can Nginx handle. Does it match what Nginx claimed? Also, try to monitor the saturation of the Nginx server (CPU, memory, I/O etc...). Do you see any significant changes in those metrics?
 
-##Pre-requisite to WK2 - Create an AWS account
+## Pre-requisite to WK2 - Create an AWS account
 
 1. Account creation
 The account creation itself is free. We can use resources under free-tier for free up to 1 year. Please use the link below to create: https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/
