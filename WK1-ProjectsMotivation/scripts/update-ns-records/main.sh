@@ -26,7 +26,7 @@ while true; do
         cat ../rs.json | sed "s#NAME#$record#g" | sed "s#NS1#$ns1#g" | sed "s#NS2#$ns2#g" | sed "s#NS3#$ns3#g" | sed "s#NS4#$ns4#g" > rs.json
 
         # the hosted zone id is the one for jiangren.mooo.com
-        aws route53 change-resource-record-sets --hosted-zone-id Z04178883P0B2ARC6W0XJ --change-batch file://rs.json
+        aws route53 change-resource-record-sets --hosted-zone-id Z00405652SQD44MUS2KEG --change-batch file://rs.json
         mv $record "$record.done"
     done
 done

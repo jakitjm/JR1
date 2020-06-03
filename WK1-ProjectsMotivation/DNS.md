@@ -29,7 +29,7 @@ Let us quickly go through SSH.md
 ![Alt text](images/DNS15.png?raw=true)
 2. Upload the file to the server via: `scp your_name.jiangren.mooo.com ec2-user@3.25.99.145:/home/ec2-user`
 3. Validate your NS record is updated via `dig NS your_name.jiangren.mooo.com`.
-4. Now, you should be able to view the site.
+4. Now, you should be able to see 403 unsafe visit error in Chrome browser.
 ![Alt text](images/DNS16.png?raw=true)
 
 # Task 3: Add CNAME with Certification
@@ -37,7 +37,7 @@ Let us quickly go through SSH.md
 ![Alt text](images/DNS4_1.png?raw=true)
 2. Click "Edit" button to continue edit.
 ![Alt text](images/DNS4.png?raw=true)
-3. In the "Alternative Domain Names (CNAMEs)", input your Domain name. Then, click "Request or import a Certificate with ACM".
+3. Click "Request or import a Certificate with ACM".
 ![Alt text](images/DNS5.png?raw=true)
 4. Input your Domain Name.
 ![Alt text](images/DNS6.png?raw=true)
@@ -55,3 +55,5 @@ You should get a successful result.
 ![Alt text](images/DNS13.png?raw=true)
 10. Click "Yes, Edit" in the bottom right to save it. It should take 10 minutes or so to apply cloudfront changes to all the edge servers.
 ![Alt text](images/DNS14.png?raw=true)
+11.You should be able to view your site in https
+![Alt text](images/DNS17.png?raw=true)
