@@ -5,6 +5,6 @@
 3. Create a test repo with a README file
 4. Make sure the configuration does not allow changes to masters directly
 5. Make sure the teammembers have the right level access
-6. Add the SSH key
+6. Add the SSH key (Instruction: https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html)
 6. Start branching out the master branch and try to add code and commit the code
 7. Now, try to create multiple branches and modify the README together and commit the code
