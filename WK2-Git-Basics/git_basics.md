@@ -100,6 +100,12 @@ git rm <file_name>
 # add the commit message
 git commit -m "<jira_ticket_shorthand> <a concise summary>"
 
+# revert changes from a commit by creating a new commit
+git revert <commit_hash>
+
+# reset branch to this commit
+git reset (--soft|mixed|hard) <commit_hash> 
+
 # push the local change to the remote server
 git push
 
