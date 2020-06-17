@@ -55,12 +55,12 @@ But to host a static website, we need a publicly available bucket that is open t
 First thing's first, import the ‘boto3’ library in Python, then call the AWS S3 client. Now use the ‘create_bucket()’ method on the client and provide a ‘Bucket Name’, which is ‘michaelsu-static-website’ in our example. 
 This will create a new AWS S3 bucket and you can also verify that by listing the names of existing buckets again as described in the previous example.
 
-But since this website should be publically open, we need assign a ‘bucket policy’ to this ‘bucket: prateek-static-website’ with read-only permissions for any anonymous user. 
+But since this website should be publically open, we need assign a ‘bucket policy’ to this ‘bucket: michaelsu.mooo.com’ with read-only permissions for any anonymous user. 
 So now I will create the bucket policy in JSON format and assign ‘"Action":["s3:GetObject"]’ permission to only grant the ‘read-only’ rights to any users using the wildcard in ‘"Principal": "*"’. Then using the ‘put_bucket_policy()’ method of S3 client we will assign this policy to the bucket.
 
 ```python
 # bucket_name needs to be unique
-bucket_name = 'michaelsu-static-website'
+bucket_name = 'michaelsu.mooo.com'
 
 def create_bucket():
     # Create bucket
@@ -138,5 +138,4 @@ Now, if we browse the URL of our static website in the following syntax through 
 
 https://{Name-Of-Bucket}.s3-website-{Region}.amazonaws.com
 
-In our example, it is http://michaelsu-static-website.s3-website-us-east-1.amazonaws.com
-![Alt text](images/s3_host.png?raw=true)
+In our example, it is http://michaelsu.mooo.com.s3-website-us-east-1.amazonaws.com
