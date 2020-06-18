@@ -141,6 +141,7 @@ A source archive consists of your source code and any supporting files wrapped i
 
 To create a source archive and a wheel for your package, you can run the following command:
 ```python
+pip install wheel
 python setup.py sdist bdist_wheel
 ```
 This will create two files in a newly created dist directory, a source archive and a wheel.
@@ -219,7 +220,7 @@ python setup.py sdist bdist_wheel
 
 twine upload --repository testpypi dist/*
 
-pip install -i https://test.pypi.org/simple/ devops-cli==0.1.4
+pip install -i https://test.pypi.org/simple/ devops-cli
 
 devops-cli -i index.html --email <your email address>
 
